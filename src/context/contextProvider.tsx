@@ -1,7 +1,16 @@
 import { createContext, useContext, useState } from "react";
 
-interface ValueProp {
+interface DataProp {
+    html: string
+    css: string
+    js: string,
 
+
+}
+
+interface ValueProp {
+    data: DataProp,
+    setData: React.Dispatch<React.SetStateAction<DataProp>>
 }
 
 
@@ -9,16 +18,11 @@ const contextProvider = createContext<ValueProp | null>(null)
 
 
 export default function ContextAppProvider({ children }: { children: React.ReactNode }) {
-    const [html, setHtml] = useState<String>(" ")
-    const [css, setCss] = useState<String>(" ")
-    const [js, setJs] = useState<String>(" ")
+    const [data, setData] = useState<DataProp>({ html: "", css: "", js: "" })
 
-    const value = {
-        html,
-        setHtml,
-        css, setCss,
-        js,
-        setJs
+    const value: ValueProp = {
+        data,
+        setData
     }
 
 

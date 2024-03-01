@@ -1,12 +1,33 @@
 import { Box } from "../../constants"
 import { RiSettings5Fill } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { useAppContext } from "../../context/contextProvider";
+import { ChangeEvent, FormEvent } from "react";
 
 type ElementProp = {
     el: Box
 }
 
 export default function PenCard({ el }: ElementProp) {
+    const { data, setData } = useAppContext()
+
+    function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
+        setData(prev => {
+            if ('target' in e && 'name' in e.target && 'value' in e.target) {
+                return { ...prev, [e.target.name]: e.target.value }
+
+            }
+            return prev
+        })
+
+        console.log(data)
+
+
+    }
+
+
+
+
     return (
         <div className="flex flex-col w-full mr-[17px] mb-[17px]">
             <div className="flex items-center justify-between w-full">
@@ -26,7 +47,7 @@ export default function PenCard({ el }: ElementProp) {
 
 
             <div className="w-full">
-                <textarea name={el.name} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none"></textarea>
+                <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea>
 
 
             </div>
