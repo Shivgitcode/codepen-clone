@@ -2,10 +2,13 @@ import { Box } from "../../constants"
 import { RiSettings5Fill } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAppContext } from "../../context/contextProvider";
-import { ChangeEvent, FormEvent } from "react";
 import Codemirror from "@uiw/react-codemirror"
 import { html } from "@codemirror/lang-html"
 import { material } from "@uiw/codemirror-theme-material";
+import { less } from "@codemirror/lang-less"
+import {
+    javascript
+} from "@codemirror/lang-javascript"
 
 type ElementProp = {
     el: Box
@@ -14,20 +17,15 @@ type ElementProp = {
 export default function PenCard({ el }: ElementProp) {
     const { data, setData } = useAppContext()
 
-    function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
-        setData(prev => {
-            if (('target' in e) && ('name' in e.target) && ('value' in e.target)) {
-                return { ...prev, [e.target.name]: e.target.value }
+    function handleForm(newValue: string) { // Updated to accept newValue
+        try {
+            setData((prev) => ({ ...prev, [el.name.toLowerCase()]: newValue }));
+        } catch (error) {
+            console.error("Error updating data:", error);
+        }
 
-            }
-            return prev
-        })
-
-        console.log(data)
-
-
+        console.log(data);
     }
-
 
 
 
@@ -51,10 +49,18 @@ export default function PenCard({ el }: ElementProp) {
 
             <div className="w-full">
                 {/* <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea> */}
-                <Codemirror height="250px" extensions={[html()]} onChange={() => handleForm} theme={material}></Codemirror>
 
+                {
+                    el.name === "HTML" && <Codemirror height="250px" extensions={[html()]} onChange={(value) => handleForm(value)} theme={material}></Codemirror>
+                }
 
+                {
+                    el.name === "CSS" && <Codemirror height="250px" extensions={[less()]} onChange={(value) => handleForm(value)} theme={material}></Codemirror>
+                }
 
+                {
+                    el.name === "JS" && <Codemirror height="250px" extensions={[javascript()]} onChange={(value) => handleForm(value)} theme={material}></Codemirror>
+                }
 
             </div>
 
