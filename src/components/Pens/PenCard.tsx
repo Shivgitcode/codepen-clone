@@ -12,20 +12,18 @@ type ElementProp = {
 }
 
 export default function PenCard({ el }: ElementProp) {
-    const { data, setData } = useAppContext()
+    const { data, setData } = useAppContext();
 
     function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
         setData(prev => {
-            if (('target' in e) && ('name' in e.target) && ('value' in e.target)) {
-                return { ...prev, [e.target.name]: e.target.value }
-
+            if ('target' in e && e.target && 'name' in e.target && 'value' in e.target) {
+                const inputEvent = e as ChangeEvent<HTMLInputElement>; // Type assertion
+                return { ...prev, [inputEvent.target.name]: inputEvent.target.value };
             }
-            return prev
-        })
+            return prev;
+        });
 
-        console.log(data)
-
-
+        console.log(data);
     }
 
 
