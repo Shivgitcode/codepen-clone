@@ -51,7 +51,7 @@ export default function PenCard({ el }: ElementProp) {
 
             <div className="w-full">
                 {/* <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea> */}
-                <Codemirror height="250px" extensions={[html()]} onChange={handleForm} theme={material}></Codemirror>
+                <Codemirror height="250px" extensions={[html()]} onChange={() => handleForm} theme={material}></Codemirror>
 
 
 
