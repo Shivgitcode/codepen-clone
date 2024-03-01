@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-html": "^6.4.8",
     "@uiw/codemirror-extensions-langs": "^4.21.24",
     "@uiw/codemirror-theme-material": "^4.21.24",
     "@uiw/react-codemirror": "^4.21.24",
