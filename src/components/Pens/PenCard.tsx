@@ -3,6 +3,9 @@ import { RiSettings5Fill } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAppContext } from "../../context/contextProvider";
 import { ChangeEvent, FormEvent } from "react";
+import Codemirror from "@uiw/react-codemirror"
+import { html } from "@codemirror/lang-html"
+import { material } from "@uiw/codemirror-theme-material";
 
 type ElementProp = {
     el: Box
@@ -13,7 +16,7 @@ export default function PenCard({ el }: ElementProp) {
 
     function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
         setData(prev => {
-            if ('target' in e && 'name' in e.target && 'value' in e.target) {
+            if (('target' in e) && ('name' in e.target) && ('value' in e.target)) {
                 return { ...prev, [e.target.name]: e.target.value }
 
             }
@@ -47,7 +50,10 @@ export default function PenCard({ el }: ElementProp) {
 
 
             <div className="w-full">
-                <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea>
+                {/* <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea> */}
+                <Codemirror height="250px" extensions={[html()]} onChange={handleForm} theme={material}></Codemirror>
+
+
 
 
             </div>
