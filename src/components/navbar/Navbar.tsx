@@ -3,7 +3,7 @@ import { FaPencilAlt } from "react-icons/fa";
 
 export default function Navbar() {
     return (
-        <div className="w-full bg-black border-b-[1px]">
+        <div className="w-full bg-black border-b-[1px] border-[#2F2F2F]">
             <div className="flex w-[98%] justify-between items-center text-white mx-auto py-[10px]">
                 <div className="flex items-center justify-center">
                     <img src={logo} alt="" className="max-w-[30px] mx-[8px] " />
