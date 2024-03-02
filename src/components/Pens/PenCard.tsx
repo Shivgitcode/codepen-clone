@@ -5,6 +5,8 @@ import { useAppContext } from "../../context/contextProvider";
 import { ChangeEvent, FormEvent } from "react";
 import Codemirror from "@uiw/react-codemirror"
 import { html } from "@codemirror/lang-html"
+import { javascript } from "@codemirror/lang-javascript"
+import { css } from "@codemirror/lang-css"
 import { material } from "@uiw/codemirror-theme-material";
 
 type ElementProp = {
@@ -13,6 +15,7 @@ type ElementProp = {
 
 export default function PenCard({ el }: ElementProp) {
     const { data, setData } = useAppContext();
+    let func;
 
     function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
         setData(prev => {
@@ -26,6 +29,17 @@ export default function PenCard({ el }: ElementProp) {
         console.log(data);
     }
 
+
+    if (el.name === "HTML") {
+        func = html()
+
+    }
+    else if (el.name === "CSS") {
+        func = css()
+    }
+    else {
+        func = javascript()
+    }
 
 
 
@@ -49,7 +63,7 @@ export default function PenCard({ el }: ElementProp) {
 
             <div className="w-full">
                 {/* <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea> */}
-                <Codemirror height="250px" extensions={[html()]} onChange={() => handleForm} theme={material}></Codemirror>
+                <Codemirror height="250px" extensions={[func]} onChange={() => handleForm} theme={material}></Codemirror>
 
 
 
