@@ -1,6 +1,5 @@
 // import { html } from "@codemirror/lang-html"
 import { useAppContext } from "../../context/contextProvider"
-import Iframe from 'react-iframe'
 
 export default function Display() {
   const { data } = useAppContext()

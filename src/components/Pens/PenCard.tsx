@@ -2,12 +2,9 @@ import { Box } from "../../constants"
 import { RiSettings5Fill } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAppContext } from "../../context/contextProvider";
-// import { ChangeEvent, FormEvent } from "react";
 import Codemirror from "@uiw/react-codemirror"
 import { langs } from "@uiw/codemirror-extensions-langs"
-// import { html } from "@codemirror/lang-html"
-// import { javascript } from "@codemirror/lang-javascript"
-// import { css } from "@codemirror/lang-css"
+
 import { material } from "@uiw/codemirror-theme-material";
 
 type ElementProp = {
