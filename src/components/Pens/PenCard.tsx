@@ -2,11 +2,12 @@ import { Box } from "../../constants"
 import { RiSettings5Fill } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useAppContext } from "../../context/contextProvider";
-import { ChangeEvent, FormEvent } from "react";
+// import { ChangeEvent, FormEvent } from "react";
 import Codemirror from "@uiw/react-codemirror"
-import { html } from "@codemirror/lang-html"
-import { javascript } from "@codemirror/lang-javascript"
-import { css } from "@codemirror/lang-css"
+import { langs } from "@uiw/codemirror-extensions-langs"
+// import { html } from "@codemirror/lang-html"
+// import { javascript } from "@codemirror/lang-javascript"
+// import { css } from "@codemirror/lang-css"
 import { material } from "@uiw/codemirror-theme-material";
 
 type ElementProp = {
@@ -17,28 +18,27 @@ export default function PenCard({ el }: ElementProp) {
     const { data, setData } = useAppContext();
     let func;
 
-    function handleForm(e: FormEvent<HTMLFormElement> | ChangeEvent<HTMLInputElement>) {
-        setData(prev => {
-            if ('target' in e && e.target && 'name' in e.target && 'value' in e.target) {
-                const inputEvent = e as ChangeEvent<HTMLInputElement>; // Type assertion
-                return { ...prev, [inputEvent.target.name]: inputEvent.target.value };
-            }
-            return prev;
-        });
+    function handleForm(newValue: string) { // Updated to accept newValue
+        try {
+            setData((prev) => ({ ...prev, [el.name.toLowerCase()]: newValue }));
+        } catch (error) {
+            console.error("Error updating data:", error);
+        }
 
         console.log(data);
     }
 
 
+
     if (el.name === "HTML") {
-        func = html()
+        func = langs.html()
 
     }
     else if (el.name === "CSS") {
-        func = css()
+        func = langs.css()
     }
     else {
-        func = javascript()
+        func = langs.javascript()
     }
 
 
@@ -63,7 +63,7 @@ export default function PenCard({ el }: ElementProp) {
 
             <div className="w-full">
                 {/* <textarea name={el.name.toLowerCase()} cols={30} rows={13} className="w-full outline-none bg-[#1d1e22] resize-none" onChange={handleForm}></textarea> */}
-                <Codemirror height="250px" extensions={[func]} onChange={() => handleForm} theme={material}></Codemirror>
+                <Codemirror height="250px" extensions={[func]} onChange={(value) => handleForm(value)} theme={material}></Codemirror>
 
 
 
