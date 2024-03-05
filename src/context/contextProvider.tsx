@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface DataProp {
     html: string
@@ -10,6 +10,8 @@ interface DataProp {
 
 interface ValueProp {
     data: DataProp,
+    loading: boolean,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     setData: React.Dispatch<React.SetStateAction<DataProp>>
 }
 
@@ -19,8 +21,11 @@ const contextProvider = createContext<ValueProp | null>(null)
 
 export default function ContextAppProvider({ children }: { children: React.ReactNode }) {
     const [data, setData] = useState<DataProp>({ html: "", css: "", js: "" })
+    const [loading, setLoading] = useState(false)
 
     const value: ValueProp = {
+        loading,
+        setLoading,
         data,
         setData
     }

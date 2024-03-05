@@ -1,9 +1,11 @@
 // import { html } from "@codemirror/lang-html"
 import { useAppContext } from "../../context/contextProvider"
+import CodepenDisplay from "./CodepenDisplay"
 
 export default function Display() {
-  const { data } = useAppContext()
+  const { data, loading } = useAppContext()
   // const displayDiv = document.querySelector('#display') as HTMLDivElement
+
 
   const displayBlock = `
       <html>
@@ -21,12 +23,15 @@ export default function Display() {
     
     `
 
+  console.log(loading)
+
   // displayDiv.innerHTML = displayBlock
 
 
   return (
-    <iframe srcDoc={displayBlock} title="Output" sandbox="allow-scripts" frameBorder={0} width="100%" height="100%;" >
+    <div>
+      {loading ? <div>Loading...</div> : <CodepenDisplay displayBlock={displayBlock}></CodepenDisplay>}
+    </div>
 
-    </iframe>
   )
 }

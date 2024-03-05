@@ -6,18 +6,34 @@ import Codemirror from "@uiw/react-codemirror"
 import { langs } from "@uiw/codemirror-extensions-langs"
 
 import { material } from "@uiw/codemirror-theme-material";
+import { useEffect } from "react";
 
 type ElementProp = {
     el: Box
 }
 
 export default function PenCard({ el }: ElementProp) {
-    const { data, setData } = useAppContext();
+
+
+    const { data, setData, setLoading } = useAppContext();
     let func;
+
+
+
 
     function handleForm(newValue: string) { // Updated to accept newValue
         try {
-            setData((prev) => ({ ...prev, [el.name.toLowerCase()]: newValue }));
+
+
+            setLoading(true)
+
+            let m = setTimeout(() => {
+                setData((prev) => ({ ...prev, [el.name.toLowerCase()]: newValue }));
+                clearTimeout(m)
+                setLoading(false)
+            }, 1500)
+
+
         } catch (error) {
             console.error("Error updating data:", error);
         }
